@@ -177,18 +177,6 @@ class CGAN(nn.Module):
                 net.train()
      
 
-    def forward(self):
-        """Run forward pass; called by both functions <optimize_parameters> and <test>."""
-        self.seg = self.netS(self.real_A)  # G(A)
-
-        self.mask = (self.seg > self.cfg.NET.SEG_THRD).to(torch.float32)
-
-        self.coarse,self.Refine = self.netG(self.real_A, self.real_A, self.mask)  # G(A)
-
-        self.Re, self.d2, self.d3, self.d4 = self.Refine
-
-        return self.mask,self.coarse,self.Re
-    
 
 
 
